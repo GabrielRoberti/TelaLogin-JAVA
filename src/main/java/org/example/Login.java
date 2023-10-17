@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -16,21 +17,43 @@ public class Login {
 
     public void telaLogin() {
         Scanner scanner = new Scanner(System.in);
+        StringBuilder BoasVindas = new StringBuilder();
+        StringBuilder Negado = new StringBuilder();
 
-        System.out.println("--------------------------------");
-        System.out.println("|  Insira seu CPF:             |");
-        System.out.println("--------------------------------");
+//        System.out.println("--------------------------------");
+//        System.out.println("|  Insira seu CPF:             |");
+//        System.out.println("--------------------------------");
+//
+//        this.cpf = cpfMascara(scanner);
+//
+        String cpf = JOptionPane.showInputDialog("Digite seu CPF");
+        JOptionPane.showMessageDialog(null,cpfMascara(cpf));
 
-        this.cpf = cpfMascara(scanner);
+//        System.out.println("--------------------------------");
+//        System.out.println("|  Insira sua Senha:           |");
+//        System.out.println("--------------------------------");
+//        this.senha = scanner.nextLine();
 
-        System.out.println("--------------------------------");
-        System.out.println("|  Insira sua Senha:           |");
-        System.out.println("--------------------------------");
-        this.senha = scanner.nextLine();
+        String senha = JOptionPane.showInputDialog("Digite sua SENHA");
+        JOptionPane.showMessageDialog(null,senha);
+
+        if (cpf.equals("39598291839") && senha.equals("123")){
+            BoasVindas.append("Bem-vindo!");
+            JOptionPane.showMessageDialog(null, BoasVindas);
+
+        } else if (cpf.length() >= 13) {
+            Negado.append("Tente novamente!");
+            telaLogin();
+
+        } else {
+            Negado.append("Acesso Negado!");
+            JOptionPane.showMessageDialog(null, Negado);
+            telaLogin();
+        }
     }
 
-    private String cpfMascara(Scanner scanner) {
-        String input = scanner.nextLine();
+    private String cpfMascara(String scanner) {
+        String input = scanner;
         String cpf = "";
 
         Pattern pattern = Pattern.compile("(\\d{3})(\\d{3})(\\d{3})(\\d{2})");
